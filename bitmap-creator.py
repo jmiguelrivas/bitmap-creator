@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 import tkinter as tk
+from tkinter import messagebox
+import os
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 current_color = 15
 grid_size = 16
@@ -41,10 +44,16 @@ colors_name = [
   "White",
 ]
 
+def set_window_title(color):
+  win.title("Bitmap Creator - " + colors_name[color] + "(" + str(color) + ")")
+
+def close_window():
+  win.destroy()
+
 def clear_values():
   global current_color
   current_color = 15
-  win.title("Bitmap Creator - " + colors_name[current_color] + "(" + str(current_color) + ")")
+  set_window_title(current_color)
   for x in range(grid_size):
     for y in range(grid_size):
       buttons[x][y].config(
@@ -52,14 +61,11 @@ def clear_values():
         bg=colors[0]
       )
 
-def close_window():
-  win.destroy()
+def save_cpp_file():
+  messagebox.showinfo("Bitmap Created", "file created at: " + dir_path + "/bitmap.cpp")
 
 def save_pascal_file():
-  win.title("Save")
-
-def save_cpp_file():
-  win.title("Save")
+  messagebox.showinfo("Bitmap Created", "file created at: " + dir_path + "/bitmap.pas")
 
 def change_color_btn(x,y):
   buttons[x][y].config(
@@ -69,12 +75,12 @@ def change_color_btn(x,y):
 
 def change_color(color):
   global current_color
-  win.title("Bitmap Creator - " + colors_name[color] + "(" + str(color) + ")")
+  set_window_title(color)
   current_color = int(color)
 
 # defining window
 win = tk.Tk()
-win.title("Bitmap Creator - " + colors_name[current_color] + "(" + str(current_color) + ")")
+set_window_title(current_color)
 win.resizable(False, False)
 
 # creating menu bar

@@ -46,13 +46,43 @@ def clear_values():
     for y in range(grid_size):
       buttons[x][y].config(
         text=str(0),
-        bg=colors[0]
+        bg=colors[0].hex
       )
 
 def save_cpp_file():
+  bitmap = ""
+  for x in range(grid_size):
+    bitmap += "["
+    for y in range(grid_size):
+      val = int(buttons[x][y].cget("text"))
+      text = str(val)
+      if(val < 10):
+        text = "0" + str(val)
+      bitmap += text + ", "
+    bitmap = bitmap[:-2]
+    bitmap += "],\n"
+
+  f = open("bitmap.cpp", "w")
+  f.write(bitmap)
+  f.close()
   messagebox.showinfo("Bitmap Created", "file created at: " + dir_path + "/bitmap.cpp")
 
 def save_pascal_file():
+  bitmap = ""
+  for x in range(grid_size):
+    bitmap += "["
+    for y in range(grid_size):
+      val = int(buttons[x][y].cget("text"))
+      text = str(val)
+      if(val < 10):
+        text = "0" + str(val)
+      bitmap += text + ", "
+    bitmap = bitmap[:-2]
+    bitmap += "],\n"
+
+  f = open("bitmap.pas", "w")
+  f.write(bitmap)
+  f.close()
   messagebox.showinfo("Bitmap Created", "file created at: " + dir_path + "/bitmap.pas")
 
 def change_color_btn(x,y):

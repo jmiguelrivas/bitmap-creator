@@ -50,17 +50,17 @@ def clear_values():
       )
 
 def save_cpp_file():
-  bitmap = ""
+  bitmap = "{\n"
   for x in range(grid_size):
-    bitmap += "["
+    bitmap += "  "
     for y in range(grid_size):
       val = int(buttons[x][y].cget("text"))
       text = str(val)
       if(val < 10):
         text = "0" + str(val)
       bitmap += text + ", "
-    bitmap = bitmap[:-2]
-    bitmap += "],\n"
+    bitmap = bitmap[:-1] + "\n"
+  bitmap += "}"
 
   f = open("bitmap.cpp", "w")
   f.write(bitmap)
